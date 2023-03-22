@@ -1,7 +1,7 @@
-mineflayer = require('mineflayer');
-scratch = require('scratch-vm');
-arg_type = require('scratch-vm/src/extension-support/argument-type');
-block_type = require('scratch-vm/src/extension-support/block-type');
+// mineflayer = require('mineflayer');
+// scratch = require('scratch-vm');
+// arg_type = require('scratch-vm/src/extension-support/argument-type');
+// block_type = require('scratch-vm/src/extension-support/block-type');
 
 class ScratchFetch {
     constructor (runtime) {
@@ -14,7 +14,7 @@ class ScratchFetch {
             blocks: [
                 {
                     opcode: 'connect',
-                    blockType: block_type.COMMAND,
+                    blockType: Scratch.block_type.COMMAND,
                     text: 'Connect to [HOST][PORT][NAME]',
                     arguments: {
                         HOST: {
@@ -35,12 +35,13 @@ class ScratchFetch {
         };
     }
     connect (args) {
-        let bot;
-        bot = mineflayer.createBot({
-            host: args.HOST,
-            port: args.PORT,
-            username: args.NAME
-        });
+        // let bot;
+        // bot = mineflayer.createBot({
+        //     host: args.HOST,
+        //     port: args.PORT,
+        //     username: args.NAME
+        // });
+        return fetch(args.HOST).then(response => response.text())
         }
 
 }
