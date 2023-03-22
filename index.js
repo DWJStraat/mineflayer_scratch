@@ -6,7 +6,7 @@ class ScratchMineflayer {
 
     getInfo() {
         return {
-            "id": "Mineflayer",
+            "id": "MF",
             "name": "Mineflayer1.0",
             "blocks": [
                 {
