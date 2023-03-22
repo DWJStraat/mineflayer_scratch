@@ -7,7 +7,7 @@ class ScratchMineflayer {
     getInfo() {
         return {
             "id": "Mineflayer",
-            "name": "Mineflayer",
+            "name": "Mineflayer1.0",
             "blocks": [
                 {
                     "opcode": "connect",
@@ -47,9 +47,14 @@ class ScratchMineflayer {
         };
     }
 
-    connect({url}) {
-        return fetch(url).then(response => response.text())
+    connect(args) {
+        var bot = mineflayer.createBot({
+            host: args.HOST,
+            port: args.port,
+            username: args.USERNAME,
+        })
     }
+}
 
     jsonExtract({name,data}) {
         var parsed = JSON.parse(data)
