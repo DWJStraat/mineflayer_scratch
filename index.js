@@ -1,5 +1,5 @@
 mineflayer = require('mineflayer');
-Scratch = require('scratch-vm');
+scratch = require('scratch-vm');
 arg_type = require('scratch-vm/src/extension-support/argument-type');
 block_type = require('scratch-vm/src/extension-support/block-type');
 
@@ -45,3 +45,4 @@ class ScratchFetch {
 
 }
 
+Scratch.extensions.register(new ScratchFetch());
