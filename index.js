@@ -1,4 +1,7 @@
 mineflayer = require('mineflayer');
+Scratch = require('scratch-vm');
+arg_type = require('scratch-vm/src/extension-support/argument-type');
+block_type = require('scratch-vm/src/extension-support/block-type');
 
 class ScratchFetch {
     constructor (runtime) {
@@ -11,15 +14,15 @@ class ScratchFetch {
             blocks: [
                 {
                     opcode: 'connect',
-                    blockType: "command",
+                    blockType: block_type.COMMAND,
                     text: 'Connect to [HOST][PORT][NAME]',
                     arguments: {
                         HOST: {
-                            type: Scratch.ArgumentType.STRING,
+                            type: arg_type.STRING,
                             defaultValue: 'localhost'
                         },
                         PORT: {
-                            type: Scratch.ArgumentType.NUMBER,
+                            type: arg_type.NUMBER,
                             defaultValue: 25566
                         },
                         NAME: {
@@ -42,4 +45,3 @@ class ScratchFetch {
 
 }
 
-Scratch.extensions.register(new ScratchFetch())

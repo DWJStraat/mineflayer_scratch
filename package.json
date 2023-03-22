@@ -1,0 +1,8 @@
+{
+  "name": "ScratchMineflayer",
+  "version": "1.0.0",
+  "dependencies": {
+    "mineflayer": "^4.8.1",
+    "scratch-vm": "^1.5.3"
+  }
+}
