@@ -1,21 +1,29 @@
-class ScratchFetch {
+class ScratchMineflayer {
     constructor() {
     }
 
     getInfo() {
         return {
-            "id": "Fetch",
-            "name": "Fetch",
+            "id": "Mineflayer",
+            "name": "Mineflayer",
             "blocks": [
                 {
-                    "opcode": "fetchURL",
-                    "blockType": "reporter",
-                    "text": "fetch data from [url]",
+                    "opcode": "connect",
+                    "blockType": "command",
+                    "text": "Connect to [HOST]:[PORT] as [USERNAME]",
                     "arguments": {
-                        "url": {
+                        "HOST": {
                             "type": "string",
-                            "defaultValue": "https://api.weather.gov/stations/KNYC/observations"
+                            "defaultValue": "localhost"
                         },
+                        "PORT": {
+                            "type": "number",
+                            "defaultValue": 25565
+                        },
+                        "USERNAME": {
+                            "type": "string",
+                            "defaultValue": "Scratch"
+                        }
                     }
                 },
                 {
@@ -37,7 +45,7 @@ class ScratchFetch {
         };
     }
 
-    fetchURL({url}) {
+    connect({url}) {
         return fetch(url).then(response => response.text())
     }
 
@@ -58,4 +66,4 @@ class ScratchFetch {
     }
 }
 
-Scratch.extensions.register(new ScratchFetch())
+Scratch.extensions.register(new ScratchMineflayer())
