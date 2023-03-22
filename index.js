@@ -1,49 +1,61 @@
-// mineflayer = require('mineflayer');
-// scratch = require('scratch-vm');
-// arg_type = require('scratch-vm/src/extension-support/argument-type');
-// block_type = require('scratch-vm/src/extension-support/block-type');
-
 class ScratchFetch {
-    constructor (runtime) {
-        this.runtime = runtime;
+    constructor() {
     }
-    getInfo () {
+
+    getInfo() {
         return {
-            id: 'mineflayer',
-            name: 'Mineflayer',
-            blocks: [
+            "id": "Fetch",
+            "name": "Fetch",
+            "blocks": [
                 {
-                    opcode: 'connect',
-                    blockType: Scratch.block_type.COMMAND,
-                    text: 'Connect to [HOST][PORT][NAME]',
-                    arguments: {
-                        HOST: {
-                            type: arg_type.STRING,
-                            defaultValue: 'localhost'
+                    "opcode": "fetchURL",
+                    "blockType": "reporter",
+                    "text": "fetch data from [url]",
+                    "arguments": {
+                        "url": {
+                            "type": "string",
+                            "defaultValue": "https://api.weather.gov/stations/KNYC/observations"
                         },
-                        PORT: {
-                            type: arg_type.NUMBER,
-                            defaultValue: 25566
-                        },
-                        NAME: {
-                            type: Scratch.ArgumentType.STRING,
-                            defaultValue: 'BotName'
-                        }
                     }
-                }
-            ]
+                },
+                {
+                    "opcode": "jsonExtract",
+                    "blockType": "reporter",
+                    "text": "extract [name] from [data]",
+                    "arguments": {
+                        "name": {
+                            "type": "string",
+                            "defaultValue": "temperature"
+                        },
+                        "data": {
+                            "type": "string",
+                            "defaultValue": '{"temperature": 12.3}'
+                        },
+                    }
+                },
+            ],
         };
     }
-    connect (args) {
-        // let bot;
-        // bot = mineflayer.createBot({
-        //     host: args.HOST,
-        //     port: args.PORT,
-        //     username: args.NAME
-        // });
-        return fetch(args.HOST).then(response => response.text())
-        }
 
+    fetchURL({url}) {
+        return fetch(url).then(response => response.text())
+    }
+
+    jsonExtract({name,data}) {
+        var parsed = JSON.parse(data)
+        if (name in parsed) {
+            var out = parsed[name]
+            var t = typeof(out)
+            if (t == "string" || t == "number")
+                return out
+            if (t == "boolean")
+                return t ? 1 : 0
+            return JSON.stringify(out)
+        }
+        else {
+            return ""
+        }
+    }
 }
 
-Scratch.extensions.register(new ScratchFetch());
+Scratch.extensions.register(new ScratchFetch())
