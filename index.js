@@ -1,3 +1,5 @@
+mineflayer = require('mineflayer')
+
 class ScratchMineflayer {
     constructor() {
     }
